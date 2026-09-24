@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service
 
 internal interface EmployeeService {
     fun findAll(): List<Employee>
+    fun findById(id: Long): Employee?
+    fun save(employee: Employee)
+    fun deleteById(id: Long)
 }
 
 
@@ -16,5 +19,18 @@ internal class EmployeeServiceImpl(
     override fun findAll(): List<Employee> {
         val employeeList = employeeDao.findAll()
         return employeeList
+    }
+
+    override fun findById(id: Long): Employee? {
+        val employee = employeeDao.findById(id)
+        return employee
+    }
+
+    override fun save(employee: Employee) {
+        employeeDao.save(employee)
+    }
+
+    override fun deleteById(id: Long) {
+        employeeDao.delete(id)
     }
 }

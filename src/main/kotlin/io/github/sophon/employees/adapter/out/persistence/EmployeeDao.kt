@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository
 
 internal interface EmployeeDao {
     fun findAll(): List<Employee>
-    fun findById(id: Int): Employee
+    fun findById(id: Long): Employee?
     fun save(employee: Employee): Employee
-    fun delete(id: Int)
+    fun delete(id: Long)
 }
 
 @Repository
@@ -28,11 +28,11 @@ internal class EmployeeDaoJpaImpl(
         return employeeList
     }
 
-    override fun findById(id: Int): Employee {
+    override fun findById(id: Long): Employee? {
         val entity: EmployeeJpaEntity = entityManager.find(
             EmployeeJpaEntity::class.java,
             id,
-        ) ?: throw EmployeeNotFoundException(id)
+        ) ?: return null
 
         val employee = entity.toDomain()
         return employee
@@ -46,7 +46,7 @@ internal class EmployeeDaoJpaImpl(
         return mergedEmployee
     }
 
-    override fun delete(id: Int) {
+    override fun delete(id: Long) {
         val entity: EmployeeJpaEntity = entityManager.find(
             EmployeeJpaEntity::class.java,
             id,
