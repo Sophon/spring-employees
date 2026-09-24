@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
 internal interface EmployeeDao {
-    fun get(): List<Employee>
+    fun findAll(): List<Employee>
     fun get(id: Int): Employee
     fun add(employee: Employee)
     fun update(employee: Employee): Employee
@@ -18,7 +18,7 @@ internal class EmployeeDaoJpaImpl(
     @Autowired private val entityManager: EntityManager,
 ): EmployeeDao {
 
-    override fun get(): List<Employee> {
+    override fun findAll(): List<Employee> {
         val query = entityManager.createQuery(
             "FROM $NAME_TABLE_EMPLOYEE",
             EmployeeJpaEntity::class.java,
