@@ -1,8 +1,17 @@
 package io.github.sophon.employees.adapter.`in`.web
 
 import io.github.sophon.employees.application.domain.model.Employee
+import io.github.sophon.employees.application.port.`in`.CreateEmployeeUseCase
+import io.github.sophon.employees.application.port.`in`.DeleteEmployeeUseCase
 import io.github.sophon.employees.application.port.`in`.FindAllEmployeesUseCase
+import io.github.sophon.employees.application.port.`in`.FindEmployeeByIdUseCase
+import io.github.sophon.employees.application.port.`in`.UpdateEmployeeUseCase
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -10,11 +19,51 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/employees")
 internal class EmployeeRestController(
     private val findAllEmployeesUseCase: FindAllEmployeesUseCase,
+    private val findEmployeeByIdUseCase: FindEmployeeByIdUseCase,
+    private val createEmployeeUseCase: CreateEmployeeUseCase,
+    private val updateEmployeeUseCase: UpdateEmployeeUseCase,
+    private val deleteEmployeeUseCase: DeleteEmployeeUseCase,
 ) {
 
     @GetMapping
     fun findAll(): List<Employee> {
         val employeeList = findAllEmployeesUseCase()
         return employeeList
+    }
+
+    @GetMapping("/{id}")
+    fun findById(
+        @PathVariable id: Long,
+    ): Employee {
+        val employee = findEmployeeByIdUseCase(id)
+        return employee
+    }
+
+    @PostMapping
+    fun createEmployee(
+        @RequestBody employeeRequestDto: EmployeeRequestDto,
+    ): Employee {
+        val employee = employeeRequestDto.toDomain(id = 0) //TODO: properly form ID
+        createEmployeeUseCase(employee)
+
+        return employee
+    }
+
+    @PutMapping("/{id}")
+    fun updateEmployee(
+        @PathVariable id: Long,
+        @RequestBody employeeRequestDto: EmployeeRequestDto,
+    ): Employee {
+        val updatedEmployee = employeeRequestDto.toDomain(id)
+        updateEmployeeUseCase(id = id, employee = updatedEmployee)
+
+        return updatedEmployee
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteEmployee(
+        @PathVariable id: Long,
+    ) {
+        deleteEmployeeUseCase(id)
     }
 }
