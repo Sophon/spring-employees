@@ -14,7 +14,7 @@ internal data class EmployeeJpaEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    val id: Int,
+    val id: Int? = null,
 
     @Column(name = "first_name")
     val firstName: String,

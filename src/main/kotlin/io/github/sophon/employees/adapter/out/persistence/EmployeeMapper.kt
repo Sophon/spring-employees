@@ -3,6 +3,8 @@ package io.github.sophon.employees.adapter.out.persistence
 import io.github.sophon.employees.application.domain.model.Employee
 
 internal fun EmployeeJpaEntity.toDomain(): Employee {
+    val id = requireNotNull(this.id) { "Entity must have an ID." }
+
     val employee = Employee(
         id = id,
         firstName = firstName,

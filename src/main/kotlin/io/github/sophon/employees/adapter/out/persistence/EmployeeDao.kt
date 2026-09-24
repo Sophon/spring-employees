@@ -1,5 +1,6 @@
 package io.github.sophon.employees.adapter.out.persistence
 
+import io.github.sophon.employees.application.domain.exception.EmployeeNotFoundException
 import io.github.sophon.employees.application.domain.model.Employee
 import jakarta.persistence.EntityManager
 import org.springframework.beans.factory.annotation.Autowired
@@ -7,9 +8,8 @@ import org.springframework.stereotype.Repository
 
 internal interface EmployeeDao {
     fun findAll(): List<Employee>
-    fun get(id: Int): Employee
-    fun add(employee: Employee)
-    fun update(employee: Employee): Employee
+    fun findById(id: Int): Employee
+    fun save(employee: Employee): Employee
     fun delete(id: Int)
 }
 
@@ -25,25 +25,33 @@ internal class EmployeeDaoJpaImpl(
         )
 
         val employeeList = query.resultList.map { it.toDomain() }
-
         return employeeList
     }
 
-    override fun get(id: Int): Employee {
-        TODO("Not yet implemented")
+    override fun findById(id: Int): Employee {
+        val entity: EmployeeJpaEntity = entityManager.find(
+            EmployeeJpaEntity::class.java,
+            id,
+        ) ?: throw EmployeeNotFoundException(id)
+
+        val employee = entity.toDomain()
+        return employee
     }
 
-    override fun add(employee: Employee) {
+    override fun save(employee: Employee): Employee {
         val entity = employee.toEntity()
-        TODO("Not yet implemented")
-    }
+        val mergedEntity = entityManager.merge(entity)
 
-    override fun update(employee: Employee): Employee {
-        val entity = employee.toEntity()
-        TODO("Not yet implemented")
+        val mergedEmployee = mergedEntity.toDomain()
+        return mergedEmployee
     }
 
     override fun delete(id: Int) {
-        TODO("Not yet implemented")
+        val entity: EmployeeJpaEntity = entityManager.find(
+            EmployeeJpaEntity::class.java,
+            id,
+        ) ?: throw EmployeeNotFoundException(id)
+
+        entityManager.remove(entity)
     }
 }
