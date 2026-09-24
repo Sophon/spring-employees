@@ -1,6 +1,5 @@
 package io.github.sophon.employees.adapter.out.persistence
 
-import io.github.sophon.employees.application.domain.exception.EmployeeNotFoundException
 import io.github.sophon.employees.application.domain.model.Employee
 import jakarta.persistence.EntityManager
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,7 +9,7 @@ internal interface EmployeeDao {
     fun findAll(): List<Employee>
     fun findById(id: Long): Employee?
     fun save(employee: Employee): Employee
-    fun delete(id: Long)
+    fun delete(id: Long): Boolean
 }
 
 @Repository
@@ -46,12 +45,13 @@ internal class EmployeeDaoJpaImpl(
         return mergedEmployee
     }
 
-    override fun delete(id: Long) {
+    override fun delete(id: Long): Boolean {
         val entity: EmployeeJpaEntity = entityManager.find(
             EmployeeJpaEntity::class.java,
             id,
-        ) ?: throw EmployeeNotFoundException(id)
+        ) ?: return false
 
         entityManager.remove(entity)
+        return true
     }
 }
