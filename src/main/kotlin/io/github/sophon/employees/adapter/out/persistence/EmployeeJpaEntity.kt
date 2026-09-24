@@ -1,4 +1,4 @@
-package io.github.sophon.employees.model
+package io.github.sophon.employees.adapter.out.persistence
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -9,7 +9,7 @@ import jakarta.persistence.Table
 
 @Entity(name = NAME_TABLE_EMPLOYEE)
 @Table(name = NAME_TABLE_EMPLOYEE)
-internal data class EmployeeEntity(
+internal data class EmployeeJpaEntity(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
