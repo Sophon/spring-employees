@@ -1,4 +1,4 @@
-package io.github.sophon.employees.data
+package io.github.sophon.employees.model
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

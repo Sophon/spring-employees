@@ -1,5 +1,7 @@
 package io.github.sophon.employees.data
 
+import io.github.sophon.employees.model.EmployeeEntity
+import io.github.sophon.employees.model.NAME_TABLE_EMPLOYEE
 import jakarta.persistence.EntityManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
@@ -19,7 +21,7 @@ internal class EmployeeDaoJpaImpl(
 
     override fun get(): List<EmployeeEntity> {
         val query = entityManager.createQuery(
-            "FROM $NAME_TABLE_EMPLOYEE",
+            "FROM ${NAME_TABLE_EMPLOYEE}",
             EmployeeEntity::class.java,
         )
 
