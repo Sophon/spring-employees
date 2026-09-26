@@ -1,11 +1,11 @@
 package io.github.sophon.employees.adapter.`in`.web
 
 import io.github.sophon.employees.application.domain.model.Employee
-import io.github.sophon.employees.application.port.`in`.CreateEmployeeUseCase
-import io.github.sophon.employees.application.port.`in`.DeleteEmployeeUseCase
-import io.github.sophon.employees.application.port.`in`.FindAllEmployeesUseCase
-import io.github.sophon.employees.application.port.`in`.FindEmployeeByIdUseCase
-import io.github.sophon.employees.application.port.`in`.UpdateEmployeeUseCase
+import io.github.sophon.employees.application.port.inbound.CreateEmployeeUseCase
+import io.github.sophon.employees.application.port.inbound.DeleteEmployeeUseCase
+import io.github.sophon.employees.application.port.inbound.FindAllEmployeesUseCase
+import io.github.sophon.employees.application.port.inbound.FindEmployeeByIdUseCase
+import io.github.sophon.employees.application.port.inbound.UpdateEmployeeUseCase
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.constraints.Min

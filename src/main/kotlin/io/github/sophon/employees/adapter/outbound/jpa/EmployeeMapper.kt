@@ -1,4 +1,4 @@
-package io.github.sophon.employees.adapter.out.persistence
+package io.github.sophon.employees.adapter.outbound.jpa
 
 import io.github.sophon.employees.application.domain.model.Employee
 import io.github.sophon.employees.application.domain.model.NewEmployee

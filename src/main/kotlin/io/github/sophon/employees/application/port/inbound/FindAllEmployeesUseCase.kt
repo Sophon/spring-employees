@@ -1,4 +1,4 @@
-package io.github.sophon.employees.application.port.`in`
+package io.github.sophon.employees.application.port.inbound
 
 import io.github.sophon.employees.application.domain.model.Employee
 

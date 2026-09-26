@@ -4,7 +4,7 @@ import io.github.sophon.employees.adapter.out.persistence.EmployeeDao
 import io.github.sophon.employees.application.domain.exception.EmployeeNotFoundException
 import io.github.sophon.employees.application.domain.model.Employee
 import io.github.sophon.employees.application.domain.model.NewEmployee
-import io.github.sophon.employees.application.port.`in`.UpdateEmployeeUseCase
+import io.github.sophon.employees.application.port.inbound.UpdateEmployeeUseCase
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

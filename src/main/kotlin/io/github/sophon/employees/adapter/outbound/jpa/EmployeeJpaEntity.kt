@@ -1,4 +1,4 @@
-package io.github.sophon.employees.adapter.out.persistence
+package io.github.sophon.employees.adapter.outbound.jpa
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
