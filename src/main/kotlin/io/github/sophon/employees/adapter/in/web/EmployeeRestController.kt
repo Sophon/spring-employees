@@ -63,6 +63,7 @@ internal class EmployeeRestController(
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Update an employee", description = "Update an employee of ID")
     fun updateEmployee(
         @PathVariable id: Long,
@@ -75,6 +76,7 @@ internal class EmployeeRestController(
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete an employee", description = "Delete an employee by ID")
     fun deleteEmployee(
         @PathVariable id: Long,
