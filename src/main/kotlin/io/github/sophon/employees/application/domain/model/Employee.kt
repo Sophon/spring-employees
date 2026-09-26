@@ -6,3 +6,10 @@ internal data class Employee(
     val lastName: String,
     val email: String,
 )
+
+internal data class NewEmployee(
+    val id: Long? = null,
+    val firstName: String,
+    val lastName: String,
+    val email: String,
+)

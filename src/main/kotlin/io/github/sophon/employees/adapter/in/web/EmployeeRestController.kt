@@ -51,12 +51,13 @@ internal class EmployeeRestController(
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create an employee", description = "Create a new employee")
     fun createEmployee(
         @RequestBody employeeRequestDto: EmployeeRequestDto,
     ): Employee {
-        val employee = employeeRequestDto.toDomain(id = 0) //TODO: properly form ID
-        createEmployeeUseCase(employee)
+        val newEmployee = employeeRequestDto.toDomain()
+        val employee = createEmployeeUseCase(newEmployee)
 
         return employee
     }
@@ -67,8 +68,8 @@ internal class EmployeeRestController(
         @PathVariable id: Long,
         @RequestBody employeeRequestDto: EmployeeRequestDto,
     ): Employee {
-        val updatedEmployee = employeeRequestDto.toDomain(id)
-        updateEmployeeUseCase(id = id, employee = updatedEmployee)
+        val employee = employeeRequestDto.toDomain()
+        val updatedEmployee = updateEmployeeUseCase(id = id, employee = employee)
 
         return updatedEmployee
     }

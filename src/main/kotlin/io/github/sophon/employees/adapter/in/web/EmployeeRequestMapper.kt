@@ -1,10 +1,9 @@
 package io.github.sophon.employees.adapter.`in`.web
 
-import io.github.sophon.employees.application.domain.model.Employee
+import io.github.sophon.employees.application.domain.model.NewEmployee
 
-internal fun EmployeeRequestDto.toDomain(id: Long): Employee {
-    val employee = Employee(
-        id = id,
+internal fun EmployeeRequestDto.toDomain(): NewEmployee {
+    val employee = NewEmployee(
         firstName = firstName,
         lastName = lastName,
         email = email,

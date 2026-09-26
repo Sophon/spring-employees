@@ -1,6 +1,7 @@
 package io.github.sophon.employees.adapter.out.persistence
 
 import io.github.sophon.employees.application.domain.model.Employee
+import io.github.sophon.employees.application.domain.model.NewEmployee
 import jakarta.persistence.EntityManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
@@ -8,7 +9,8 @@ import org.springframework.stereotype.Repository
 internal interface EmployeeDao {
     fun findAll(): List<Employee>
     fun findById(id: Long): Employee?
-    fun save(employee: Employee): Employee
+    fun save(employee: NewEmployee): Employee
+    fun update(employee: Employee): Employee
     fun delete(id: Long): Boolean
 }
 
@@ -37,12 +39,20 @@ internal class EmployeeDaoJpaImpl(
         return employee
     }
 
-    override fun save(employee: Employee): Employee {
+    override fun save(employee: NewEmployee): Employee {
+        val entity = employee.toEntity()
+        entityManager.persist(entity)
+
+        val savedEmployee = entity.toDomain()
+        return savedEmployee
+    }
+
+    override fun update(employee: Employee): Employee {
         val entity = employee.toEntity()
         val mergedEntity = entityManager.merge(entity)
 
-        val mergedEmployee = mergedEntity.toDomain()
-        return mergedEmployee
+        val updatedEmployee = mergedEntity.toDomain()
+        return updatedEmployee
     }
 
     override fun delete(id: Long): Boolean {
